@@ -205,7 +205,7 @@ void print_board(int board[]){
       switch(board[i*3 + j]){
         // Print a space if it is not chosen by anyone
         case 0:
-          printf("   ");
+          printf(" %d ", i*3 + j);
           break;
         // Print a "x" if player "x" chose the spot
         case 1:
