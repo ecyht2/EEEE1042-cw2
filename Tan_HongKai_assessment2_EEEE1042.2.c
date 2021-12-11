@@ -182,9 +182,6 @@ int ask_placement(int player, int botDiff, int noPlayers, int board[]){
     scanf("%d", &choice);
     printf("\n");
 
-    //Loop Back around if choice is greater than 8
-    choice = choice % 9;
-
     // Printing that the placement chosen is invalid (Chosen)
     if(board[choice] != 0){
       printf("Invalid Position please try again.\n");
