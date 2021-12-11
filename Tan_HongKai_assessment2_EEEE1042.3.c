@@ -203,7 +203,7 @@ void print_board(int board[]){
       switch(board[i*3 + j]){
         // Print a space if it is not chosen by anyone
         case 0:
-          printf("   ");
+          printf(" %d ", i*3 + j);
           break;
         // Print a "x" if player "x" chose the spot
         case 1:
@@ -232,9 +232,9 @@ int main(){
   // Setting up random seed
   srand(clock());
   // Setting up the amount of player
-  int noPlayers = 1;
+  int noPlayers = 0;
   // Setting Bot/AI Difficulty
-  int botDiff[2] = {0, 2};
+  int botDiff[2] = {2, 2};
 
 
   // Setting up initial values
