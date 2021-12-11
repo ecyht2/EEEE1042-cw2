@@ -1,5 +1,7 @@
 # cw2
 A tic-tac-toe game
 
-Build Instructions
+## Build Instructions
+```
 bash make
+```
