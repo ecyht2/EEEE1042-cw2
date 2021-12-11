@@ -18,12 +18,12 @@ fi
 
 # Setting up Situations
 case $1 in
-	1) $mode="Smart vs Smart" ;;
-	2) $mode="Smart vs Random" ;;
-	3) $mode="Random vs Random" ;;
+	1) mode="Smart vs Smart" ;;
+	2) mode="Smart vs Random" ;;
+	3) mode="Random vs Random" ;;
 esac
 
 # Getting all the data
 for x in {1..1000}; do
-	./Tan_HongKai_assessment2_EEEE1042 < stdin.txt > Data/$mode/Experiment\ $x
+	./Tan_HongKai_assessment2_EEEE1042.o < stdin.txt > Data/$mode/Experiment-$x
 done
