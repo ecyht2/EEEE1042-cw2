@@ -33,7 +33,7 @@ It is a tie $tie amount of times"
     if [ -z "$2" ]; then
         echo "$print"
     else
-        echo "$print" > $output
+        echo "$print" >> $output
     fi
 }
 
