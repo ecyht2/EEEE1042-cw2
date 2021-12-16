@@ -90,7 +90,7 @@ void copy_board(int inBoard[], int outBoard[]){
 
 int bot_choice(int board[], int botDiff, int player){
   //Initializing needed variables
-  int *freeSpots = malloc(0);
+  int *freeSpots = NULL;
   int counter = 0;
   int choice;
   int tmpBoard[9] = {0};
@@ -127,7 +127,11 @@ int bot_choice(int board[], int botDiff, int player){
         choice = freeSpots[i];
         tmpBoard[choice] = player;
         //Returning the choice if it results in a win
-        if(check_win(tmpBoard) == player) return choice;
+        if(check_win(tmpBoard) == player){
+	        //Freeing memory from freeSpots
+	        free(freeSpots);
+          return choice;
+        }
       }
 
       //Setting so that it checks if any of the choices will result in the enemy's win
@@ -142,7 +146,11 @@ int bot_choice(int board[], int botDiff, int player){
         choice = freeSpots[i];
         tmpBoard[choice] = player;
         //Returning the choice if it results in an enemy win
-        if(check_win(tmpBoard) == player) return choice;
+        if(check_win(tmpBoard) == player){
+	        //Freeing memory from freeSpots
+	        free(freeSpots);
+          return choice;
+        }
       }
 
       // Making a random choice otherwise
