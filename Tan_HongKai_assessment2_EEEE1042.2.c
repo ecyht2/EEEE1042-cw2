@@ -127,7 +127,7 @@ int bot_choice(int board[], int botDiff, int player){
         choice = freeSpots[i];
         tmpBoard[choice] = player;
         //Returning the choice if it results in a win
-        if(check_win(tmpBoard) == player)
+        if(check_win(tmpBoard) == player){
           //Freeing memory from freeSpots
           free(freeSpots);
           return choice;
