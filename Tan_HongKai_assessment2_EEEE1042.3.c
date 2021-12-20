@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#define N 1000
 const int winCon[][3] = {
   //Horizontal Win Conditions
   {0, 1, 2},
@@ -236,16 +237,51 @@ void print_board(int board[]){
 }
 
 int playGame(int noPlayers, int botDiff[]);
+void printWins(int wins[], char *message);
+void exportWins(int wins[], char *message);
 
 int main(){
   // Setting up random seed
   srand(clock());
   // Setting up the amount of player
   int noPlayers = 0;
+
+  /* Smart AI vs Smart AI */
   // Setting Bot/AI Difficulty
   int botDiff[2] = {2, 2};
 
-  playGame(noPlayers, botDiff);
+  int wins[3] = {0};
+  int cWinner;
+  for(int i = 0; i < N; i++){
+    cWinner = playGame(noPlayers, botDiff);
+    wins[cWinner]++;
+  }
+  printWins(wins, "Smart vs Smart");
+  exportWins(wins, "Smart vs Smart");
+
+  /* Smart AI vs Random AI */
+  // Setting Bot/AI Difficulty
+  botDiff[1] = 1;
+
+  for(int i = 0; i < 3; i++) wins[i] = 0;
+  for(int i = 0; i < N; i++){
+    cWinner = playGame(noPlayers, botDiff);
+    wins[cWinner]++;
+  }
+  printWins(wins, "Smart vs Random");
+  exportWins(wins, "Smart vs Random");
+
+  /* Random AI vs Random AI */
+  // Setting Bot/AI Difficulty
+  botDiff[0] = 1;
+
+  for(int i = 0; i < 3; i++) wins[i] = 0;
+  for(int i = 0; i < N; i++){
+    cWinner = playGame(noPlayers, botDiff);
+    wins[cWinner]++;
+  }
+  printWins(wins, "Random vs Random");
+  exportWins(wins, "Random vs Random");
 
   return 0;
 }
@@ -282,4 +318,22 @@ int playGame(int noPlayers, int botDiff[]){
   else printf("It is a tie\n");
 
   return winner;
+}
+
+void printWins(int wins[], char *message){
+  printf("%s\n", message);
+  printf("x wins %d amount of times\n", wins[1]);
+  printf("x losts %d amount of times\n", wins[2]);
+  printf("It is a tie %d amount of times\n", wins[0]);
+}
+
+void exportWins(int wins[], char *message){
+  FILE *f;
+
+  if((f = fopen("outputData.txt", "a")) != NULL){
+    fprintf(f, "%s\n", message);
+    fprintf(f, "x wins %d amount of times\n", wins[1]);
+    fprintf(f, "x losts %d amount of times\n", wins[2]);
+    fprintf(f, "It is a tie %d amount of times\n", wins[0]);
+  } else printf("Failed to open output file");
 }
