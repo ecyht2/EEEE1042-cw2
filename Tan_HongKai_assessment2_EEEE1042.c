@@ -130,10 +130,10 @@ int bot_choice(int board[], int botDiff, int player){
         tmpBoard[choice] = player;
         //Returning the choice if it results in a win
         if(check_win(tmpBoard) == player){
-  	        //Freeing memory from freeSpots
-	        free(freeSpots);
-		return choice;
-	}
+          //Freeing memory from freeSpots
+          free(freeSpots);
+          return choice;
+        }
       }
 
       //Setting so that it checks if any of the choices will result in the enemy's win
@@ -149,10 +149,10 @@ int bot_choice(int board[], int botDiff, int player){
         tmpBoard[choice] = player;
         //Returning the choice if it results in an enemy win
         if(check_win(tmpBoard) == player){
-  	        //Freeing memory from freeSpots
-	        free(freeSpots);
-		return choice;
-	}
+          //Freeing memory from freeSpots
+          free(freeSpots);
+          return choice;
+        }
       }
 
       // Making a random choice otherwise

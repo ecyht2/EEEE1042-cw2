@@ -49,6 +49,7 @@ int ask_no_players(){
 
   //Asking for the number of players
   do{
+    printf("Available Choices: 0, 1, 2\n");
     printf("How many players are playing: ");
     scanf("%d", &nPlayers);
     printf("\n");
@@ -71,6 +72,7 @@ int ask_bot_diff(int botNo){
   player = player_symbol(botNo);
 
   do{
+    printf("Available Choices: 1, 2\n");
     printf("What difficulty do you want bot %c to be: ", player);
     scanf("%d", &bDiff);
     printf("\n");
@@ -132,7 +134,6 @@ int bot_choice(int board[], int botDiff, int player){
           free(freeSpots);
           return choice;
         }
-
       }
 
       //Setting so that it checks if any of the choices will result in the enemy's win
