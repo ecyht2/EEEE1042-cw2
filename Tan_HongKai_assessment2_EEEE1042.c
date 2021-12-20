@@ -176,13 +176,13 @@ int ask_placement(int player, int botDiff, int noPlayers, int board[]){
     // Finding and ruturning the bot choice
     choice = bot_choice(board, botDiff, player);
     // Printing the choice of the bot
-    printf("Bot %c chose spot number %d\n", playerSym, choice);
+    printf("Bot %c chose spot number %d\n", playerSym, choice + 1);
     return choice;
   } else if(noPlayers == 1 && playerSym == 'o'){ //If the number players is one and the symbol is 'o' let an AI decide the choice
     // Finding and ruturning the bot choice
     choice = bot_choice(board, botDiff, player);
     // Printing the choice of the bot
-    printf("Bot %c chose spot number %d\n", playerSym, choice);
+    printf("Bot %c chose spot number %d\n", playerSym, choice + 1);
     return choice;
   }
 
@@ -193,13 +193,13 @@ int ask_placement(int player, int botDiff, int noPlayers, int board[]){
     printf("\n");
 
     // Printing that the placement chosen is invalid (Chosen)
-    if(!(choice <= 8 && choice >= 0) || board[choice] != 0){
+    if(!(choice >= 1 && choice <= 9) || board[choice - 1] != 0){
       printf("Invalid Position please try again.\n");
     }
-  } while(!(choice <= 8 && choice >= 0) || board[choice] != 0); //Reasking the player if it is an invalid option
+  } while(!(choice >= 1 && choice <= 9) || board[choice - 1] != 0); //Reasking the player if it is an invalid option
 
   // returning the choice
-  return choice;
+  return choice - 1;
 }
 
 void print_board(int board[]){
@@ -210,7 +210,7 @@ void print_board(int board[]){
       switch(board[i*3 + j]){
         // Print a space if it is not chosen by anyone
         case 0:
-          printf(" %d ", i*3 + j);
+          printf(" %d ", i*3 + j + 1);
           break;
         // Print a "x" if player "x" chose the spot
         case 1:
@@ -235,6 +235,8 @@ void print_board(int board[]){
   printf("\n");
 }
 
+int playGame(int noPlayers, int botDiff[]);
+
 int main(){
   /* The program will first ask you the amount of players that are playing, 2 = two player mode, 1 = single player mode and 0 = AI vs AI */
   /* If the amount of player chosen is less than 2, the program will ask you what the difficulty of AI you want to be. 1 = the AI will place randomly and 2 = will be the smart AI which has some logic */
@@ -254,6 +256,12 @@ int main(){
     botDiff[1] = ask_bot_diff(2);
   }
 
+  playGame(noPlayers, botDiff);
+
+  return 0;
+}
+
+int playGame(int noPlayers, int botDiff[]){
   // Setting up initial values
   int cPlayer = rand() % 2 + 1;
   int cBoard[] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -283,4 +291,6 @@ int main(){
   char winnerChar = player_symbol(winner);
   if(winner > 0) printf("Player %c won!\n", winnerChar);
   else printf("It is a tie\n");
+
+  return winner;
 }
