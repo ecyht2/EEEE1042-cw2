@@ -46,13 +46,13 @@ char player_symbol(int playerNo){
 
 int ask_no_players(){
   // Setting initial Variables
-  int nPlayers;
+  int nPlayers = -1;
 
   //Asking for the number of players
   do{
     printf("Available Choices: 0, 1, 2\n");
     printf("How many players are playing: ");
-    scanf("%d", &nPlayers);
+    if(scanf("%d", &nPlayers) == 0) scanf("%*s");
     printf("\n");
 
     if(nPlayers < 0 || nPlayers > 2){
@@ -66,7 +66,7 @@ int ask_no_players(){
 
 int ask_bot_diff(int botNo){
   // Setting up initial Values
-  int bDiff;
+  int bDiff = -1;
   char player;
 
   // Determining the symbol of the bot
@@ -75,7 +75,7 @@ int ask_bot_diff(int botNo){
   do{
     printf("Available Choices: 1, 2\n");
     printf("What difficulty do you want bot %c to be: ", player);
-    scanf("%d", &bDiff);
+    if(scanf("%d", &bDiff) == 0) scanf("%*s");
     printf("\n");
 
     if(bDiff < 1 || bDiff > 2){
@@ -170,7 +170,7 @@ int bot_choice(int board[], int botDiff, int player){
 int ask_placement(int player, int botDiff, int noPlayers, int board[]){
   // Setting up initial Values
   char playerSym = player_symbol(player);
-  int choice;
+  int choice = -1;
 
   // If there is no human players the choice would be chosen by an AI based on it's difficulty
   if(noPlayers == 0){
@@ -190,7 +190,7 @@ int ask_placement(int player, int botDiff, int noPlayers, int board[]){
   do{
     // Asking where the player wants to place their symbol
     printf("Player %c turn, please select a position: ", playerSym);
-    scanf("%d", &choice);
+    if(scanf("%d", &choice) == 0) scanf("%*s");
     printf("\n");
 
     // Printing that the placement chosen is invalid (Chosen)
