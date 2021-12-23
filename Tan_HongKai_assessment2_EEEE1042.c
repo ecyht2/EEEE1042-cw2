@@ -247,6 +247,8 @@ int main(){
   int noPlayers = ask_no_players();
 
   // Asking for the difficulty of the bot
+  /* botDiff[0] sets value for player "x", botDiff[1] sets values for player "o"
+    Value of 0 means the AI is playered control, 1 means a Random AI and 2 means Smart AI */
   int botDiff[2] = {0};
 
   if(noPlayers == 1){
