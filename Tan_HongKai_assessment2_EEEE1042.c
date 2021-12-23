@@ -115,6 +115,7 @@ int bot_choice(int board[], int botDiff, int player){
       free(freeSpots);
       //returning a random choice
       return choice;
+      break;
     case 2:
       /*
       Uncomment to make the bot to always chose the middle spot if empty making the bot "even smarter"
@@ -161,6 +162,9 @@ int bot_choice(int board[], int botDiff, int player){
       free(freeSpots);
       // Returning a random choice otherwise
       return choice;
+      break;
+    case 3:
+      return 0;
   }
 
   return 0;
