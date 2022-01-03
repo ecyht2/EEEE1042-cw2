@@ -89,29 +89,38 @@ int ask_bot_diff(int botNo){
 }
 
 int minimax(int board[], int player, int nFreeSpace, int freeSpace[], int *choice){
+  // Checking current game state
   int winner = check_win(board);
-  if(nFreeSpace == 0){
+  // Returns a value if there aren't anymore free spaces
+  if(nFreeSpace == 0 || winner > 0){
+    // Returns 0 if a tie
     if(winner == 0)
       return 0;
+    // Returns 10 if player won
     else if(winner == player)
       return 10;
+    // Returns -10 if player lost
     else return -10;
   }
 
+  // Setting up who is the next player
   int nextPlayer = player;
   if(player == 1)
     nextPlayer = 2;
   else nextPlayer = 1;
 
+  // Setting up variables
   int newFreeSpace[nFreeSpace - 1];
   int dummyChoice;
   int cMax = -1000;
 
+  // Looping over all available choices
   for(int i = 0; i < nFreeSpace; i++){
+    // Making a temporary choice
     int tmpChoice = freeSpace[i];
-
     board[tmpChoice] = player;
 
+    // Creating the left over free spaces
     for(int j = 0; j < nFreeSpace; j++){
       int remove = 0;
       if(j >= i){
@@ -121,14 +130,15 @@ int minimax(int board[], int player, int nFreeSpace, int freeSpace[], int *choic
       newFreeSpace[j - remove] = freeSpace[j];
     }
 
+    // Going over all possible choices
     int value = -minimax(board, nextPlayer, nFreeSpace - 1, newFreeSpace, &dummyChoice);
-
-
+    // If the current choice have a higher score, use the current choice
     if(value > cMax){
       *choice = tmpChoice;
       cMax = value;
     }
 
+    // Undoing the temporary choice
     board[tmpChoice] = 0;
   }
 
