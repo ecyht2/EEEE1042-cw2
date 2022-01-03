@@ -74,15 +74,15 @@ int ask_bot_diff(int botNo){
   player = player_symbol(botNo);
 
   do{
-    printf("Available Choices: 1, 2\n");
+    printf("Available Choices: 1, 2, 3\n");
     printf("What difficulty do you want bot %c to be: ", player);
     if(scanf("%d", &bDiff) == 0) scanf("%*s");
     printf("\n");
 
-    if(bDiff < 1 || bDiff > 2){
+    if(bDiff < 1 || bDiff > 3){
       printf("Invalid Bot/AI difficulty, please try again\n");
     }
-  } while(bDiff < 1 || bDiff > 2);
+  } while(bDiff < 1 || bDiff > 3);
 
   // Returning the Bot difficulty
   return bDiff;
@@ -90,6 +90,53 @@ int ask_bot_diff(int botNo){
 
 void copy_board(int inBoard[], int outBoard[]){
   for(int i = 0; i < 9; i++) outBoard[i] = inBoard[i];
+}
+
+int minimax(int board[], int player, int nFreeSpace, int freeSpace[], int *choice){
+  int winner = check_win(board);
+  if(nFreeSpace == 0){
+    if(winner == 0)
+      return 0;
+    else if(winner == player)
+      return 10;
+    else return -10;
+  }
+
+  int nextPlayer = player;
+  if(player == 1)
+    nextPlayer = 2;
+  else nextPlayer = 1;
+
+  int newFreeSpace[nFreeSpace - 1];
+  int dummyChoice;
+  int cMax = -1000;
+
+  for(int i = 0; i < nFreeSpace; i++){
+    int tmpChoice = freeSpace[i];
+
+    board[tmpChoice] = player;
+
+    for(int j = 0; j < nFreeSpace; j++){
+      int remove = 0;
+      if(j >= i){
+        remove = 1;
+        if(j == i) continue;
+      }
+      newFreeSpace[j - remove] = freeSpace[j];
+    }
+
+    int value = -minimax(board, nextPlayer, nFreeSpace - 1, newFreeSpace, &dummyChoice, depth + 1);
+
+
+    if(value > cMax){
+      *choice = tmpChoice;
+      cMax = value;
+    }
+
+    board[tmpChoice] = 0;
+  }
+
+  return cMax;
 }
 
 int bot_choice(int board[], int botDiff, int player){
@@ -166,7 +213,13 @@ int bot_choice(int board[], int botDiff, int player){
       return choice;
       break;
     case 3:
-      return 0;
+      minimax(board, player, counter, freeSpots, &choice, 0);
+      free(freeSpots);
+      return choice;
+      break;
+    default:
+      free(freeSpots);
+      break;
   }
 
   return 0;
@@ -244,7 +297,9 @@ void print_board(int board[]){
 int playGame(int noPlayers, int botDiff[]){
   // Setting up initial values
   int cPlayer = rand() % 2 + 1;
-  int cBoard[] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+  int cBoard[] = {0, 0, 0,
+                  0, 0, 0,
+                  0, 0, 0};
   int winner = 0;
 
   //Printing out the initial board

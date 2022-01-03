@@ -9,6 +9,7 @@ char player_symbol(int playerNo);
 int ask_no_players();
 int ask_bot_diff(int botNo);
 void copy_board(int inBoard[], int outBoard[]);
+int minimax(int board[], int player, int nFreeSpace, int freeSpace[], int * choice);
 int bot_choice(int board[], int botDiff, int player);
 int ask_placement(int player, int botDiff, int noPlayers, int board[]);
 void print_board(int board[]);
