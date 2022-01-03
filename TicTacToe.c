@@ -88,10 +88,6 @@ int ask_bot_diff(int botNo){
   return bDiff;
 }
 
-void copy_board(int inBoard[], int outBoard[]){
-  for(int i = 0; i < 9; i++) outBoard[i] = inBoard[i];
-}
-
 int minimax(int board[], int player, int nFreeSpace, int freeSpace[], int *choice){
   int winner = check_win(board);
   if(nFreeSpace == 0){
@@ -173,13 +169,15 @@ int bot_choice(int board[], int botDiff, int player){
 
       // Checking if any of the choices will result in the bot's victory
       for(int i = 0; i < counter; i++){
-        //Creating a temporary new board
-        copy_board(board, tmpBoard);
-        //Setting the temporary board with the test value
+        // Testing Placments
         choice = freeSpots[i];
-        tmpBoard[choice] = player;
+        board[choice] = player;
+        // Checking winner
+        int winner = check_win(tmpBoard);
+        // Undo Placment
+        board[choice] = 0;
         //Returning the choice if it results in a win
-        if(check_win(tmpBoard) == player){
+        if(winner == player){
           //Freeing memory from freeSpots
           free(freeSpots);
           return choice;
@@ -192,13 +190,15 @@ int bot_choice(int board[], int botDiff, int player){
 
       // Checking if any of the choices will result in the enemy's victory
       for(int i = 0; i < counter; i++){
-        //Creating a temporary new board
-        copy_board(board, tmpBoard);
-        //Setting the temporary board with the test value
+        // Testing Placments
         choice = freeSpots[i];
-        tmpBoard[choice] = player;
+        board[choice] = player;
+        // Checking winner
+        int winner = check_win(tmpBoard);
+        // Undo Placment
+        board[choice] = 0;
         //Returning the choice if it results in an enemy win
-        if(check_win(tmpBoard) == player){
+        if(winner == player){
           //Freeing memory from freeSpots
           free(freeSpots);
           return choice;
