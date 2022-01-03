@@ -140,7 +140,6 @@ int bot_choice(int board[], int botDiff, int player){
   int *freeSpots = NULL;
   int counter = 0;
   int choice;
-  int tmpBoard[9] = {0};
 
   for(int i = 0; i < 9; i++){
     if(board[i] == 0){
@@ -173,7 +172,7 @@ int bot_choice(int board[], int botDiff, int player){
         choice = freeSpots[i];
         board[choice] = player;
         // Checking winner
-        int winner = check_win(tmpBoard);
+        int winner = check_win(board);
         // Undo Placment
         board[choice] = 0;
         //Returning the choice if it results in a win
@@ -194,7 +193,7 @@ int bot_choice(int board[], int botDiff, int player){
         choice = freeSpots[i];
         board[choice] = player;
         // Checking winner
-        int winner = check_win(tmpBoard);
+        int winner = check_win(board);
         // Undo Placment
         board[choice] = 0;
         //Returning the choice if it results in an enemy win
