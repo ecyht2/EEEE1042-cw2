@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 vg="valgrind --tool=memcheck --leak-check=yes --show-reachable=yes --num-callers=20 --track-fds=yes --track-origins=yes -s"
-FILE="Tan_HongKai_assessment2_EEEE1042"
+FILE="ttt"
 INCLUDE="TicTacToe.c"
 
 gcc $FILE.c $INCLUDE -o $FILE.o
