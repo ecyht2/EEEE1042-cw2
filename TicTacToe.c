@@ -125,7 +125,7 @@ int minimax(int board[], int player, int nFreeSpace, int freeSpace[], int *choic
       newFreeSpace[j - remove] = freeSpace[j];
     }
 
-    int value = -minimax(board, nextPlayer, nFreeSpace - 1, newFreeSpace, &dummyChoice, depth + 1);
+    int value = -minimax(board, nextPlayer, nFreeSpace - 1, newFreeSpace, &dummyChoice);
 
 
     if(value > cMax){
@@ -213,7 +213,7 @@ int bot_choice(int board[], int botDiff, int player){
       return choice;
       break;
     case 3:
-      minimax(board, player, counter, freeSpots, &choice, 0);
+      minimax(board, player, counter, freeSpots, &choice);
       free(freeSpots);
       return choice;
       break;
