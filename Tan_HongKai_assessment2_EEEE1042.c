@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "TicTacToe.h"
+#include "Gui.h"
 
 int main(){
   /* The program will first ask you the amount of players that are playing, 2 = two player mode, 1 = single player mode and 0 = AI vs AI */
