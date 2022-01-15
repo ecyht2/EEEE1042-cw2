@@ -54,7 +54,7 @@ static void activate(GtkApplication *app, gpointer user_data){
 
   /* create a new window, and set its title */
   window = gtk_application_window_new(app);
-  gtk_window_set_title(GTK_WINDOW (window), "Window");
+  gtk_window_set_title(GTK_WINDOW (window), "TicTacToe");
 
   /* Here we construct the container that is going pack our buttons */
   grid = gtk_grid_new ();
@@ -105,10 +105,10 @@ int playGameGUI(int argc, char **argv, int noPlayers, int botDiff[]) {
   gdata.noMoves = 0;
 
   // Starting GUI
-  app = gtk_application_new ("org.gtk.example", G_APPLICATION_FLAGS_NONE);
-  g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
-  status = g_application_run (G_APPLICATION (app), argc, argv);
-  g_object_unref (app);
+  app = gtk_application_new("org.gtk.example", G_APPLICATION_FLAGS_NONE);
+  g_signal_connect(app, "activate", G_CALLBACK (activate), NULL);
+  status = g_application_run(G_APPLICATION (app), argc, argv);
+  g_object_unref(app);
 
   return status;
 }

@@ -11,7 +11,8 @@ int main(int argc, char *argv[]){
   // Setting up random seed
   srand(clock());
   // Asking for how many players are playing
-  int noPlayers = ask_no_players();
+  // int noPlayers = ask_no_players();
+  int noPlayers = 2;
 
   // Asking for the difficulty of the bot
   /* botDiff[0] sets value for player "x", botDiff[1] sets values for player "o"
