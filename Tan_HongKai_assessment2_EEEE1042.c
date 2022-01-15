@@ -4,7 +4,7 @@
 #include "TicTacToe.h"
 #include "Gui.h"
 
-int main(){
+int main(int argc, char *argv[]){
   /* The program will first ask you the amount of players that are playing, 2 = two player mode, 1 = single player mode and 0 = AI vs AI */
   /* If the amount of player chosen is less than 2, the program will ask you what the difficulty of AI you want to be. 1 = the AI will place randomly and 2 = will be the smart AI which has some logic */
 
@@ -25,7 +25,7 @@ int main(){
     botDiff[1] = ask_bot_diff(2);
   }
 
-  playGame(noPlayers, botDiff);
+  playGameGUI(argc, argv, noPlayers, botDiff);
 
   return 0;
 }

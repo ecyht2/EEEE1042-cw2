@@ -3,21 +3,21 @@
 #include <time.h>
 #include "TicTacToe.h"
 
-const int winCon[][3] = {
-  //Horizontal Win Conditions
-  {0, 1, 2},
-  {3, 4, 5},
-  {6, 7, 8},
-  //Vertical Win Conditions
-  {0, 3, 6},
-  {1, 4, 7},
-  {2, 5, 8},
-  //Diaganol Win Conditions
-  {0, 4, 8},
-  {2, 4, 6}
-};
-
 int check_win(int board[]){
+  const int winCon[][3] = {
+    //Horizontal Win Conditions
+    {0, 1, 2},
+    {3, 4, 5},
+    {6, 7, 8},
+    //Vertical Win Conditions
+    {0, 3, 6},
+    {1, 4, 7},
+    {2, 5, 8},
+    //Diaganol Win Conditions
+    {0, 4, 8},
+    {2, 4, 6}
+  };
+
   // Setting up the number of win Conditions
   int noWinCon = sizeof(winCon)/sizeof(int)/3;
 
@@ -31,6 +31,10 @@ int check_win(int board[]){
 
   // Returing that no one has won yet
   return 0;
+}
+
+void switch_player(int *player){
+  *player = *player % 2 + 1;
 }
 
 char player_symbol(int playerNo){
@@ -229,25 +233,35 @@ int bot_choice(int board[], int botDiff, int player){
   return 0;
 }
 
-int ask_placement(int player, int botDiff, int noPlayers, int board[]){
-  // Setting up initial Values
+int bot_logic(int board[], int botDiff[], int noPlayers, int player){
   char playerSym = player_symbol(player);
   int choice = -1;
 
   // If there is no human players the choice would be chosen by an AI based on it's difficulty
   if(noPlayers == 0){
     // Finding and ruturning the bot choice
-    choice = bot_choice(board, botDiff, player);
+    choice = bot_choice(board, botDiff[player - 1], player);
     // Printing the choice of the bot
     printf("Bot %c chose spot number %d\n", playerSym, choice + 1);
     return choice;
   } else if(noPlayers == 1 && playerSym == 'o'){ //If the number players is one and the symbol is 'o' let an AI decide the choice
     // Finding and ruturning the bot choice
-    choice = bot_choice(board, botDiff, player);
+    choice = bot_choice(board, botDiff[player - 1], player);
     // Printing the choice of the bot
     printf("Bot %c chose spot number %d\n", playerSym, choice + 1);
     return choice;
   }
+
+  return -1;
+}
+
+int ask_placement(int player, int botDiff[], int noPlayers, int board[]){
+  // Setting up initial Values
+  char playerSym = player_symbol(player);
+  int choice = -1;
+
+  choice = bot_logic(board, botDiff, noPlayers, player);
+  if(choice != -1) return choice;
 
   do{
     // Asking where the player wants to place their symbol
@@ -298,6 +312,12 @@ void print_board(int board[]){
   printf("\n");
 }
 
+void print_winner(int winner){
+  char winnerChar = player_symbol(winner);
+  if(winner > 0) printf("Player %c won!\n", winnerChar);
+  else printf("It is a tie\n");
+}
+
 int playGame(int noPlayers, int botDiff[]){
   // Setting up initial values
   int cPlayer = rand() % 2 + 1;
@@ -309,7 +329,7 @@ int playGame(int noPlayers, int botDiff[]){
   //Starting the game
   for(int i = 0; i < 9; i++){
     // Asking for the player where they want to place their symbol
-    int placement = ask_placement(cPlayer, botDiff[cPlayer - 1], noPlayers, cBoard);
+    int placement = ask_placement(cPlayer, botDiff, noPlayers, cBoard);
     // Updating the Board
     cBoard[placement] = cPlayer;
     //Printing the Board
@@ -320,14 +340,11 @@ int playGame(int noPlayers, int botDiff[]){
       break;
     }
     // Switching to next player
-    if(cPlayer == 1) cPlayer = 2;
-    else cPlayer = 1;
+    switch_player(&cPlayer);
   }
 
-  // Determining Winner
-  char winnerChar = player_symbol(winner);
-  if(winner > 0) printf("Player %c won!\n", winnerChar);
-  else printf("It is a tie\n");
+  // Printing Winner
+  print_winner(winner);
 
   return winner;
 }

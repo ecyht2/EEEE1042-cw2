@@ -3,7 +3,7 @@
 #include <time.h>
 #include "TicTacToe.h"
 
-int main(){
+int main(int argc, char *argv[]){
   // Setting up random seed
   srand(clock());
   // Setting up the amount of player
