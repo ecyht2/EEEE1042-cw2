@@ -366,3 +366,11 @@ void exportWins(int wins[], char *message){
     fprintf(f, "It is a tie %d amount of times\n", wins[0]);
   } else printf("Failed to open output file");
 }
+
+void print_error(){
+  fprintf(stderr, "Unknown Usage of Program\n");
+  fprintf(stderr, "'./ttt.out' to start the porgram with CLI and have the program ask you botDifficulty and number of players\n");
+  fprintf(stderr, "'./ttt.out --gui' to start the porgram with GUI and have the program ask you botDifficulty and number of players\n");
+  fprintf(stderr, "'./ttt.out noPlayers botDiff[0] botDiff[1]' to start the program in CLI with the given settings\n");
+  fprintf(stderr, "'./ttt.out noPlayers botDiff[0] botDiff[1] --gui' to start the program in GUI with the given settings\n");
+}

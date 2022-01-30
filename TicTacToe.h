@@ -18,5 +18,6 @@ void print_winner(int winner);
 int playGame(int noPlayers, int botDiff[]);
 void printWins(int wins[], char *message);
 void exportWins(int wins[], char *message);
+void print_error();
 
 #endif // TIC-TAC-TOE_H_
