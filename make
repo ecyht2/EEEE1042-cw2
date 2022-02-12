@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 vg="valgrind --tool=memcheck --leak-check=yes --show-reachable=yes --num-callers=20 --track-fds=yes --track-origins=yes -s"
 FILE="ttt"
-INCLUDE="TicTacToe.c"
+INCLUDE="TicTacToe.c Gui.c"
+ARGS="`pkg-config --libs --cflags gtk4`"
 
-gcc $FILE.c $INCLUDE -o $FILE.o
-gcc $FILE.1.c $INCLUDE -o $FILE.1.o
-gcc $FILE.2.c $INCLUDE -o $FILE.2.o
-gcc $FILE.3.c $INCLUDE -o $FILE.3.o
-$vg ./$FILE.o
+gcc $FILE.c $INCLUDE  -o $FILE.out $ARGS
+gcc $FILE.1.c $INCLUDE -o $FILE.1.out $ARGS
+gcc $FILE.2.c $INCLUDE -o $FILE.2.out $ARGS
+gcc $FILE.3.c $INCLUDE -o $FILE.3.out $ARGS
+./$FILE.out
