@@ -68,6 +68,13 @@ static void select_choice(GtkWidget *widget, gpointer data){
   GtkWidget *label = gtk_label_new(str);
   gtk_grid_attach(GTK_GRID (gdata.grid), label, (*i%3), *i/3, 1, 1);
 
+  // Removing Click function
+  guint signal_id;
+  GQuark detail_quark;
+  g_signal_parse_name("clicked", GTK_TYPE_BUTTON, &signal_id, &detail_quark, TRUE);
+  gulong test = g_signal_handler_find(widget, G_SIGNAL_MATCH_ID, signal_id, detail_quark, NULL, NULL, NULL);
+  g_clear_signal_handler(&test, widget);
+
   // Updating Board
   gdata.cBoard[*i] = gdata.cPlayer;
 
